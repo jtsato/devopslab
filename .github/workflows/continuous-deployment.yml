@@ -1,0 +1,31 @@
+# Nome do Workflow
+name: DevOpsLab
+
+# Eventos que irão disparar o Workflow
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7.11
+      
+      - name: Install Requirements
+        run: pip install -r requirements.txt
+
+      - name: Run Tests
+        run: python -m unittest -v test
+
